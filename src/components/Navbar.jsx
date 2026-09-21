@@ -68,16 +68,12 @@ export default function Navbar({ onOpenQuoteModal, currency, setCurrency }) {
 
         {/* Main Nav */}
         <nav className="container nav-main" aria-label="Main Navigation">
-          <Link to="/" className="brand-logo-link" onClick={closeMobile}>
+          <Link to="/" className="brand-logo-link" onClick={closeMobile} aria-label="ELITE Home">
             <img
               src={assetUrl('/assets/elite-logo-white.png')}
               alt="ELITE Granite Sinks"
               className="brand-logo-img"
             />
-            <div className="brand-text-wrap">
-              <span className="brand-name">ELITE</span>
-              <span className="brand-subtitle">Engineered in Germany</span>
-            </div>
           </Link>
 
           <ul className="nav-menu">
@@ -160,10 +156,13 @@ export default function Navbar({ onOpenQuoteModal, currency, setCurrency }) {
         aria-hidden={!mobileOpen}
       >
         <div className="mobile-drawer-header">
-          <div className="brand-text-wrap">
-            <span className="brand-name">ELITE</span>
-            <span className="brand-subtitle">Engineered in Germany</span>
-          </div>
+          <Link to="/" className="brand-logo-link" onClick={closeMobile} aria-label="ELITE Home">
+            <img
+              src={assetUrl('/assets/elite-logo-white.png')}
+              alt="ELITE Granite Sinks"
+              className="brand-logo-img"
+            />
+          </Link>
           <button
             className="mobile-menu-btn"
             onClick={closeMobile}
