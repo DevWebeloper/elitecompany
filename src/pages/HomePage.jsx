@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -103,12 +103,56 @@ const ARCHITECTURAL_SPACES = [
 ];
 
 export default function HomePage({ onOpenQuoteModal, currencySymbol, formatPrice }) {
-  // Hero atmospheric background state
+  // Hero atmospheric background state (initial sync with matching finish)
   const [activeHeroBg, setActiveHeroBg] = useState(HERO_BACKGROUNDS[0]);
-  // Hero sink color selection
-  const [activeHeroColor, setActiveHeroColor] = useState(ELITE_COLORS[0]);
+  const [activeHeroColor, setActiveHeroColor] = useState(
+    () => ELITE_COLORS.find((c) => c.id === HERO_BACKGROUNDS[0].defaultColorId) || ELITE_COLORS[0]
+  );
   // Hero card view mode: 'perspective' | 'top' | 'blueprint'
   const [heroViewMode, setHeroViewMode] = useState('perspective');
+  // Pause autoplay on user interaction/hover
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Switch kitchen background and synchronously update sink finish
+  const handleSelectKitchenSetting = (bg) => {
+    setActiveHeroBg(bg);
+    const matchingColor = ELITE_COLORS.find((c) => c.id === bg.defaultColorId);
+    if (matchingColor) {
+      setActiveHeroColor(matchingColor);
+    }
+  };
+
+  // Switch sink finish and synchronously update kitchen wallpaper if mapped
+  const handleSelectHeroColor = (color) => {
+    setActiveHeroColor(color);
+    const matchingBg = HERO_BACKGROUNDS.find((bg) => bg.defaultColorId === color.id);
+    if (matchingBg) {
+      setActiveHeroBg(matchingBg);
+    }
+  };
+
+  // Autoplay effect: Automatically rotate kitchen setting wallpaper AND sink product finish
+  useEffect(() => {
+    if (isPaused) return;
+
+    const timer = setInterval(() => {
+      setActiveHeroBg((prevBg) => {
+        const currentIndex = HERO_BACKGROUNDS.findIndex((bg) => bg.id === prevBg.id);
+        const nextIndex = (currentIndex + 1) % HERO_BACKGROUNDS.length;
+        const nextBg = HERO_BACKGROUNDS[nextIndex];
+
+        // Synchronously update the sink product color to match the new wallpaper
+        const matchingColor = ELITE_COLORS.find((c) => c.id === nextBg.defaultColorId);
+        if (matchingColor) {
+          setActiveHeroColor(matchingColor);
+        }
+
+        return nextBg;
+      });
+    }, 4500);
+
+    return () => clearInterval(timer);
+  }, [isPaused]);
 
   // Collection category filter
   const [collectionFilter, setCollectionFilter] = useState('all');
@@ -183,10 +227,20 @@ export default function HomePage({ onOpenQuoteModal, currencySymbol, formatPrice
             </div>
 
             {/* Quick Background Atmosphere Switcher */}
-            <div className="hero-bg-picker-bar">
+            <div
+              className="hero-bg-picker-bar"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
               <div className="hero-bg-picker-label">
-                <span style={{ color: 'var(--text-muted)' }}>Kitchen Setting:</span>
-                <strong style={{ color: 'var(--accent-gold)' }}>{activeHeroBg.name}</strong>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                  <span style={{ color: 'var(--text-muted)' }}>Kitchen Setting:</span>
+                  <strong style={{ color: 'var(--accent-gold)' }}>{activeHeroBg.name}</strong>
+                </div>
+                <span className="hero-autoplay-indicator" title="Atmosphere and product are automatically cycling">
+                  <span className="hero-autoplay-dot" />
+                  <span>{isPaused ? 'Paused' : 'Autoplay'}</span>
+                </span>
               </div>
               <div className="hero-bg-pill-group">
                 {HERO_BACKGROUNDS.map((bg) => (
@@ -194,11 +248,7 @@ export default function HomePage({ onOpenQuoteModal, currencySymbol, formatPrice
                     key={bg.id}
                     type="button"
                     className={`hero-bg-pill ${activeHeroBg.id === bg.id ? 'active' : ''}`}
-                    onClick={() => {
-                      setActiveHeroBg(bg);
-                      const matchingColor = ELITE_COLORS.find((c) => c.id === bg.defaultColorId);
-                      if (matchingColor) setActiveHeroColor(matchingColor);
-                    }}
+                    onClick={() => handleSelectKitchenSetting(bg)}
                   >
                     <span>{bg.name}</span>
                   </button>
@@ -295,7 +345,7 @@ export default function HomePage({ onOpenQuoteModal, currencySymbol, formatPrice
                       key={color.id}
                       type="button"
                       className={`quick-swatch-btn ${isSelected ? 'active' : ''}`}
-                      onClick={() => setActiveHeroColor(color)}
+                      onClick={() => handleSelectHeroColor(color)}
                       title={`${color.name} - ${color.tagline}`}
                       aria-label={color.name}
                     >

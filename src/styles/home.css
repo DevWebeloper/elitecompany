@@ -168,8 +168,46 @@
 .hero-bg-picker-label {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.8rem;
   margin-bottom: 0.65rem;
+}
+
+.hero-autoplay-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.68rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--accent-gold);
+  background: rgba(198, 166, 93, 0.1);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(198, 166, 93, 0.25);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.hero-autoplay-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  box-shadow: 0 0 8px var(--accent-gold);
+  animation: pulseGold 2s infinite ease-in-out;
+}
+
+@keyframes pulseGold {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
 }
 
 .hero-bg-pill-group {
