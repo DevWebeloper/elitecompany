@@ -108,8 +108,6 @@ export default function HomePage({ onOpenQuoteModal, currencySymbol, formatPrice
   const [activeHeroColor, setActiveHeroColor] = useState(
     () => ELITE_COLORS.find((c) => c.id === HERO_BACKGROUNDS[0].defaultColorId) || ELITE_COLORS[0]
   );
-  // Hero card view mode: 'perspective' | 'top' | 'blueprint'
-  const [heroViewMode, setHeroViewMode] = useState('perspective');
   // Pause autoplay on user interaction/hover
   const [isPaused, setIsPaused] = useState(false);
 
@@ -166,11 +164,22 @@ export default function HomePage({ onOpenQuoteModal, currencySymbol, formatPrice
     return true;
   });
 
-  // Get current hero sink image based on selected view mode
+  // Architectural CAD installation render dynamically matching active color & background
   const getHeroSinkImage = () => {
-    if (heroViewMode === 'blueprint') return assetUrl('/assets/blueprint-etd-855d.png');
-    if (heroViewMode === 'top') return activeHeroColor.topImg;
-    return activeHeroColor.perspectiveImg;
+    switch (activeHeroColor.id) {
+      case 'white':
+        return assetUrl('/assets/sink-installed-white.jpg');
+      case 'creamy-white':
+      case 'coffee':
+        return assetUrl('/assets/sink-installed-creamy-white.png');
+      case 'dark-grey':
+      case 'light-grey':
+        return assetUrl('/assets/sink-installed-dark-grey.jpg');
+      case 'black':
+      case 'carbon-black':
+      default:
+        return assetUrl('/assets/sink-installed-carbon-black.jpg');
+    }
   };
 
   return (
@@ -293,39 +302,18 @@ export default function HomePage({ onOpenQuoteModal, currencySymbol, formatPrice
               </div>
             </div>
 
-            {/* View Mode Switcher */}
-            <div className="hero-view-switch-row">
-              <button
-                type="button"
-                className={`hero-view-pill ${heroViewMode === 'perspective' ? 'active' : ''}`}
-                onClick={() => setHeroViewMode('perspective')}
-              >
-                3D Perspective
-              </button>
-              <button
-                type="button"
-                className={`hero-view-pill ${heroViewMode === 'top' ? 'active' : ''}`}
-                onClick={() => setHeroViewMode('top')}
-              >
-                Top Plan
-              </button>
-              <button
-                type="button"
-                className={`hero-view-pill ${heroViewMode === 'blueprint' ? 'active' : ''}`}
-                onClick={() => setHeroViewMode('blueprint')}
-              >
-                CAD Blueprint
-              </button>
-            </div>
-
-            {/* Sink Showcase Stage */}
-            <div className="hero-sink-stage">
+            {/* Architectural CAD Blueprint Installation Stage */}
+            <div className="hero-installed-stage">
               <img
-                key={`${activeHeroColor.id}-${heroViewMode}`}
+                key={activeHeroColor.id}
                 src={getHeroSinkImage()}
-                alt={`ELITE ETD-855D in ${activeHeroColor.name}`}
-                className="hero-sink-img fade-in"
+                alt={`ELITE ETD-855D in ${activeHeroColor.name} Architectural CAD Installation`}
+                className="hero-installed-img fade-in"
               />
+              <div className="hero-stage-badge">
+                <Layers size={13} color="var(--accent-gold)" />
+                <span>CAD Blueprint • {activeHeroColor.name}</span>
+              </div>
             </div>
 
             {/* Quick Swatch Bar */}
