@@ -1,0 +1,64 @@
+:root {
+  /* Color System - Dark Architectural Luxury */
+  --bg-primary: #0d0f0e;
+  --bg-surface: #141715;
+  --bg-surface-elevated: #1b1f1c;
+  --bg-surface-card: rgba(22, 26, 24, 0.7);
+  --bg-glass: rgba(13, 15, 14, 0.78);
+  --bg-subtle: rgba(255, 255, 255, 0.03);
+  --bg-highlight: rgba(255, 255, 255, 0.06);
+
+  /* Borders & Dividers */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --border-strong: rgba(255, 255, 255, 0.28);
+  --border-gold: rgba(198, 166, 93, 0.4);
+
+  /* Brand Accents */
+  --accent-gold: #c6a65d;
+  --accent-gold-light: #dfc280;
+  --accent-gold-hover: #d5b56b;
+  --accent-gold-glow: rgba(198, 166, 93, 0.22);
+  --accent-carbon: #222426;
+
+  /* Typography Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #dcd7ce;
+  --text-muted: #95928a;
+  --text-dim: #676560;
+  --text-gold: #c6a65d;
+  --text-inverted: #0d0f0e;
+
+  /* Typography Families */
+  --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Radius & Spacing */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.7);
+  --shadow-gold: 0 8px 32px rgba(198, 166, 93, 0.15);
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.2, 0, 0, 1);
+  --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Container */
+  --container-max: 1380px;
+  --header-height: 76px;
+  --header-height-mobile: 62px;
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+}
