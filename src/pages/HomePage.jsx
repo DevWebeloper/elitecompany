@@ -149,12 +149,17 @@ export default function HomePage({ onOpenQuoteModal, currencySymbol, formatPrice
         <div className="container hero-content">
           <div>
             <div className="hero-badge-row">
-              <span className="section-tag">
-                <Sparkles size={13} />
+              <span className="hero-badge hero-badge-gold">
+                <Sparkles size={12} />
                 <span>Engineered in Germany</span>
               </span>
-              <span className="badge badge-gold">PureTech™ Quartz Matrix</span>
-              <span className="badge badge-outline">15-Year Guarantee</span>
+              <span className="hero-badge hero-badge-surface">
+                <span>PureTech™ Quartz Matrix</span>
+              </span>
+              <span className="hero-badge hero-badge-surface">
+                <ShieldCheck size={12} color="var(--accent-gold)" />
+                <span>15-Year Guarantee</span>
+              </span>
             </div>
 
             <h1 className="hero-title">

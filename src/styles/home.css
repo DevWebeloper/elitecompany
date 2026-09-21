@@ -75,9 +75,50 @@
 .hero-badge-row {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1.25rem;
+  gap: 0.5rem;
+  margin-bottom: 1.35rem;
   flex-wrap: wrap;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  height: 32px;
+  padding: 0 0.85rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  white-space: nowrap;
+  box-sizing: border-box;
+  margin: 0;
+  vertical-align: middle;
+  transition: var(--transition-fast);
+}
+
+.hero-badge-gold {
+  background: rgba(198, 166, 93, 0.12);
+  border: 1px solid var(--border-gold);
+  color: var(--accent-gold);
+  box-shadow: 0 0 16px rgba(198, 166, 93, 0.08);
+}
+
+.hero-badge-surface {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.hero-badge-surface:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  color: var(--text-primary);
 }
 
 .hero-title {
